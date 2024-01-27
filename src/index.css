@@ -1,13 +1,150 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --ff-sans-normal: 'YourSansNormalFont', sans-serif; /* Replace 'YourSansNormalFont' with the actual font name */
+  --fs-400: 16px; /* Replace with your desired font size */
+  --clr-white: 0, 0%, 100%; /* Replace with your desired HSL color for white */
+  --clr-dark: 200, 20%, 10%; /* Replace with your desired HSL color for dark background */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: var(--ff-sans-normal);
+  font-size: var(--fs-400);
+  color: hsl(var(--clr-white));
+  background-color: hsl(var(--clr-dark));
+  line-height: 1.5;
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+  background-color: darkgray;
+}
+
+.logo {
+  margin: 2rem;
+  max-width: 40px;
+  height: auto;
+}
+
+.primary-header {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-nav-toggle {
+  display: none;
+}
+
+
+.primary-navigation {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  background: hsl(0 0% 0% / 0.5);
+}
+
+@supports (backdrop-filter: blur(1rem)) {
+  .primary-navigation {
+    background: hsl(0 0% 100% / 0.1);
+    backdrop-filter: blur(2rem);
+  }
+}
+
+.primary-navigation a {
+  text-decoration: none;
+}
+
+.primary-navigation a > span {
+  font-weight: 700;
+  margin-inline-end: 0.75em;
+}
+
+@media (max-width: 35em) {
+  .primary-navigation {
+    --gap: 2em;
+
+    position: fixed;
+    z-index: 1000;
+    inset: 0 0 0 30%;
+
+    flex-direction: column;
+    padding: min(30vh, 10rem) 2em;
+    
+    transform: translateX(100%);
+    transition: transform 350ms ease-out;
+  }
+
+  .primary-navigation[data-visible="true"] {
+    transform: translateX(0%);
+  }
+
+  .mobile-nav-toggle {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    background-color: transparent;
+    background-image: url('../public/menu.svg');
+    background-repeat: no-repeat;
+    width: 2rem;
+    border: 0;
+    aspect-ratio: 1;
+    top: 2rem;
+    right: 2rem;
+  }
+
+  .mobile-nav-toggle[aria-expanded="true"] {
+    background-image: url('../public/close.svg');
+  }
+}
+
+@media (min-width: 35em) and (max-width: 55em) {
+  .primary-navigation a > span[aria-hidden]{
+    display: none;
+  }
+}
+
+@media (min-width: 55em) {
+    .primary-navigation {
+      --gap: clamp(1.5rem, 5vw, 3rem);
+      padding-block: 2rem;
+      padding-inline: clamp(3rem, 7vw, 10rem);
+    }
+}
+
+
+
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem)
+}
+
+/* Define the font-family for ff-sans-cond */
+.ff-sans-cond {
+  font-family: var(--ff-sans-normal); /* Replace 'YourSansCondFont' with the actual font name */
+}
+
+/* Convert text to uppercase for uppercase */
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* Set the text color to white for text-white */
+.text-white {
+  color: var(--clr-white); /* You can use any valid color value */
+}
+
+/* Set letter-spacing to 2 pixels for letter-spacing-2 */
+.letter-spacing-2 {
+  letter-spacing: 2px;
+}
+
+/* Define sr-only class for screen reader-only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
